@@ -1,0 +1,143 @@
+#!/usr/bin/env node //allows file to be executed directly instead of being passed as an argument to node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('onetime:server');
+var http = require('http');
+
+//var WebSocketServer = require("ws").Server;
+
+var DAO = require("../houseDAO");
+var logger = require('../logger');
+
+var motionTracker = require("../lightAutomation/motionTracker");
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+
+var allDevices = require('../devices');
+var fillServerModelFromDB = require('../fillServerModelFromDB');
+var powerLogger = require('../dailyPowerLogger');
+
+
+motionTracker.reups();                                      //comment to stop motion tracker
+powerLogger.dailyLogTimer();
+
+
+io.sockets.on("connection", function(socket){
+    setSockets(socket);
+});
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+
+var setSockets = function(socket) {
+
+    console.log("servers here");
+
+    socket.emit("nowBuilding", {myDevices: allDevices});                        //event to initiate the set up of the
+                                                                                //application
+    socket.on("buttonPressed", function (buttonPressed) {                       //handling of 'buttonPressed' events for
+        console.log("In button pressed for: " + buttonPressed.myName);          //devices
+
+        DAO.asyncToggleState(buttonPressed.myName, function (newState) {        //asynchronous: callback is called
+            allDevices[buttonPressed.myName].state = newState;                  //with the updated value
+            console.log(buttonPressed.myName +
+                "'s new state value is  " + newState);
+
+            //TODO: this is where our log array udating functionality should go maybe
+            logger.updateDeviceLog(buttonPressed.myName, newState);
+
+            socket.emit("stateChanged",                                         //event to trigger new state
+                {"nameValue": buttonPressed.myName, "stateValue": newState});   //value to be passed to the client
+            socket.emit("nowBuilding", {myDevices: allDevices});                                //pass the whole object again for good
+        });                                                                     //measure
+
+        socket.on("doBuilding", function () {                                   //handling requests for the server model
+            fillServerModelFromDB();                                            //happening in a 6 second recursive timeout
+            socket.emit('nowBuilding', {myDevices: allDevices});
+        });
+    });
+
+
+};

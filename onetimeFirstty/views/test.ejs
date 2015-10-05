@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <title>Floorplan</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.3.3/mocha.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>	<link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="noselect">
+<canvas id="myCanvas" height="600" width="900"></canvas>
+<div id="mocha" class="ballsackMessages"></div>
+
+<div id="roomView" class="hidden"></div>
+<img id="backdrop01" src="../backdrop01.png">
+<img id="backdrop02" src="../backdrop02.png">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.3.3/mocha.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.3.0/chai.js"></script>
+<a id="signout" class="btn btn-default btn-lg" href="http://localhost:3000/signout">SIGN OUT</a>
+<button id="mobileMenu" class="btn btn-primary btn-lg">...</button>
+<script src="../javascripts/control/popup.js"></script>
+<script src="../javascripts/model/myDeviceStates.js"></script>
+<script src="../javascripts/model/boundaryPatterns.js"></script>
+<script src="../javascripts/control/setSockets.js"></script>
+<script src="../javascripts/control/rooms.js"></script>
+<script src="../javascripts/model/myrooms.js"></script>
+<script>
+    testUpdatedRooms();
+    displayRooms();
+</script>
+
+<script>
+
+    mocha.setup('bdd');
+</script>
+<script src="../javascripts/tests/roomTests.js"></script>
+<script>
+    mocha.run();
+</script>
+</body>
+</html>

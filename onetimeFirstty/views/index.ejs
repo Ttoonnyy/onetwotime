@@ -1,0 +1,39 @@
+<html>
+<head>
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- Signin CSS -->
+  <link href="stylesheets/signin.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+  <form class='form-signin' action='/login' method='POST'>
+    <h2 class='form-signin-heading'>oneTime</h2>
+    <label class='sr-only'>Username</label>
+    <input type='text' name='username' class='form-control' placeholder='Username' required autofocus>
+    <label class='sr-only'>Password</label>
+    <input type='password' name='password' class='form-control' placeholder='Password' required>
+    <div class='checkbox'>
+      <a href='/signup' class='text-center new-account'>Create an account</a>
+    </div>
+    <button class='btn btn-lg btn-primary btn-block' type='submit'>Sign in</button>
+    <div class='social'>
+      <ul>
+        <li><a href='/login/facebook' class="btn btn-social-icon btn-facebook"><i
+                    class="fa fa-facebook fa-5x"></i></a></li>
+        <li><a href='/login/twitter' class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter fa-5x"></i></a>
+        </li>
+        <li><a href='/login/google' class="btn btn-social-icon btn-google-plus"><i
+                    class="fa fa-google-plus fa-5x"></i></a></li>
+      </ul>
+    </div>
+  </form>
+</div>
+</body>
+</html>

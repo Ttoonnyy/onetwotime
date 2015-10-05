@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <title>Garage</title>
+    <meta charset="utf-8">
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="garageDisplay"></div>
+<script>
+    var divvy = document.getElementById("garageDisplay");
+    var table = document.createElement("table");
+    var headdy = document.createElement("th")
+    headdy.innerHTML = "<h1>Garage Data</h1>"
+    var distanceRow = document.createElement("tr");
+    var distanceTitle = document.createElement('td');
+    distanceTitle.innerHTML = "<p>Distance</p>";
+    var distanceContent = document.createElement('td');
+    distanceContent.innerHTML = "<p>" + <%= dist %>+"</p>";
+    var doorStatusRow = document.createElement('tr');
+    var doorStatusTitle = document.createElement('td');
+    doorStatusTitle.innerHTML = "<p>Door Status</p>";
+    var doorStatusContent = document.createElement('td');
+    var currentState = <%=state%>;
+    var renderState = function(){if( currentState === 0){return "Closed"}else{return("Open")}};
+    doorStatusContent.innerHTML = "<p>" + renderState() + "</p>";
+
+    divvy.appendChild(table);
+    table.appendChild(headdy);
+    distanceRow.appendChild(distanceTitle);
+    distanceRow.appendChild(distanceContent);
+    table.appendChild(distanceRow);
+    doorStatusRow.appendChild(doorStatusTitle);
+    doorStatusRow.appendChild(doorStatusContent);
+    table.appendChild(doorStatusRow);
+
+</script>
+<a href="http://localhost:3000/house">To House</a> | 	<a href="http://localhost:3000/signout">SIGN OUT</a>
+</body>
+
+</html>

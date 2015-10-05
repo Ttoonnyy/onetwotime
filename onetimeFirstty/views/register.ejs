@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Signup CSS -->
+    <link href="stylesheets/signup.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class='container'>
+    <form class='form-signup' action='/signup' method='POST'>
+        <h2 class='form-signup-heading'>oneTime Signup</h2>
+        <label class='sr-only'>Username</label>
+        <input type='text' name='username' class='form-control' placeholder='Username' required autofocus>
+        <label class='sr-only'>Password</label>
+        <input type='password' name='password' class='form-control' placeholder='Password' required>
+        <label class='sr-only'>Email</label>
+        <input type='email' name='email' class='form-control' placeholder='Email' required>
+        <label class='sr-only'>Firstname</label>
+        <input type='text' name='firstName' class='form-control' placeholder='First Name' required>
+        <label class='sr-only'>Lastname</label>
+        <input type='text' name='lastName' class='form-control' placeholder='Last Name' required>
+        <br />
+        <button class='btn btn-lg btn-primary btn-block' type='submit'>Register</button>
+    </form>
+</div>
+</body>
+</html>

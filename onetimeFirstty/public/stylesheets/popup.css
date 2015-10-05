@@ -1,0 +1,38 @@
+#popup-content {
+    background-color: #000;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    color: #FFF;
+    display: none; /* Hides the popup when the page is loaded */
+    max-width: 500px;
+    padding: 0px 10px 10px 10px;
+    position: fixed;
+    width: 80%;
+    z-index: 1002; /* any value above all content */
+}
+
+#popup-content h1 {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#popup-content > div + div {
+    text-align: right;
+}
+
+#overlay-bg {
+    background-color: #000;
+    height: 100%;
+    left: 0%;
+    margin: auto;
+    display: none;
+    opacity: 0.6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    z-index: 1001;
+}
